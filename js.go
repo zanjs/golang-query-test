@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"reflect"
 
+	"io/ioutil"
+
 	"github.com/robertkrimen/otto"
 )
 
@@ -18,9 +20,7 @@ func JsRun(js string) {
 
 	hubInte, _ := hub.Export()
 
-	// _hub, _ := json.Marshal(hubstr)
 	fmt.Println(hubInte)
-	// fmt.Println(_hub)
 
 	fmt.Println(reflect.TypeOf(hubInte))
 	b, _ := json.Marshal(hubInte)
@@ -28,5 +28,9 @@ func JsRun(js string) {
 	// os.Stdout.Write(b)
 
 	fmt.Println(string(b))
+
+	var ws = []byte(string(b))
+
+	ioutil.WriteFile("sku.json", ws, 0666)
 
 }
